@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f6f4ee;
+  color: #12211c;
+}
+
+.price {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.input-field {
+  @apply w-full rounded-[6px] border border-border bg-white px-3 py-2 text-[15px] text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-[6px] bg-brand px-4 py-2.5 text-[14px] font-medium text-white transition hover:bg-brand-dark disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-[6px] border border-border bg-white px-4 py-2.5 text-[14px] font-medium text-ink transition hover:bg-brand-light/60;
+}
+
+.label {
+  @apply mb-1.5 block text-[13px] font-medium text-muted;
+}
