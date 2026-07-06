@@ -2,15 +2,18 @@ import { createClient } from "@/lib/supabase/server";
 import ItemCard from "@/components/ItemCard";
 import { CATEGORIES } from "@/lib/categories";
 import Link from "next/link";
+import FilterBar from "@/components/FilterBar";
 
 export default async function BrowsePage({
   searchParams,
 }: {
-  searchParams: {
-    region?: string;
-    search?: string;
-    category?: string;
-  };
+   searchParams: {
+  region?: string;
+  category?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  search?:string;
+};
 }) {
   const supabase = createClient();
 
@@ -27,6 +30,19 @@ export default async function BrowsePage({
   }
   if (searchParams.category) {
   query = query.eq("category", searchParams.category);
+}
+if (searchParams.minPrice) {
+  query = query.gte(
+    "price_kes",
+    Number(searchParams.minPrice)
+  );
+}
+
+if (searchParams.maxPrice) {
+  query = query.lte(
+    "price_kes",
+    Number(searchParams.maxPrice)
+  );
 }
 
   const { data: items, error } = await query;
@@ -120,6 +136,7 @@ export default async function BrowsePage({
     ))}
   </div>
 </div>
+     <FilterBar />
 
       <div id="latest" className="mb-6">
         <h2 className="font-display text-2xl font-bold text-ink">
