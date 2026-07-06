@@ -1,5 +1,6 @@
 "use client";
 
+import { CATEGORIES } from "@/lib/categories";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -15,6 +16,7 @@ export default function PostItemPage() {
   const supabase = createClient();
 
   const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [region, setRegion] = useState("");
@@ -68,6 +70,10 @@ export default function PostItemPage() {
       setError("Select a region.");
       return;
     }
+    if (!category) {
+  setError("Select a category.");
+  return;
+}
     if (images.length === 0) {
       setError("Add at least one photo.");
       return;
@@ -123,14 +129,15 @@ export default function PostItemPage() {
       const { data: inserted, error: insertError } = await supabase
         .from("items")
         .insert({
-          seller_id: user.id,
-          name,
-          price_kes: priceValue,
-          description,
-          region,
-          image_urls: imageUrls,
-          video_url: videoUrl,
-        })
+  seller_id: user.id,
+  name,
+  category,
+  price_kes: priceValue,
+  description,
+  region,
+  image_urls: imageUrls,
+  video_url: videoUrl,
+})
         .select("id")
         .single();
 
@@ -155,27 +162,46 @@ export default function PostItemPage() {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <div>
-          <label className="label">Item name</label>
-          <input
-            required
-            className="input-field"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. Samsung 55 inch smart TV"
-          />
-        </div>
+  <label className="label">Item name</label>
+  <input
+    required
+    className="input-field"
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    placeholder="e.g. Samsung 55 inch smart TV"
+  />
+</div>
 
-        <div>
-          <label className="label">Price (KES)</label>
-          <input
-            required
-            inputMode="numeric"
-            className="input-field"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder="42000"
-          />
-        </div>
+<div>
+  <label className="label">Category</label>
+
+  <select
+    required
+    className="input-field"
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+  >
+    <option value="">Select category</option>
+
+    {CATEGORIES.map((cat) => (
+  <option key={cat.name} value={cat.name}>
+    {cat.name}
+  </option>
+))}
+  </select>
+</div>
+
+<div>
+  <label className="label">Price (KES)</label>
+  <input
+    required
+    inputMode="numeric"
+    className="input-field"
+    value={price}
+    onChange={(e) => setPrice(e.target.value)}
+    placeholder="42000"
+  />
+</div>
 
         <div>
           <label className="label">Description</label>

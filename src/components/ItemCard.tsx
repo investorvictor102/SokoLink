@@ -5,6 +5,7 @@ import { formatKes } from "@/lib/utils";
 type Item = {
   id: string;
   name: string;
+  category: string;
   price_kes: number;
   region: string;
   image_urls: string[];
@@ -34,10 +35,18 @@ export default function ItemCard({ item }: { item: Item }) {
         )}
       </div>
       <div className="p-3">
-        <p className="truncate text-[14px] font-medium text-ink">{item.name}</p>
-        <p className="price mt-1 text-[15px] font-medium text-brand-dark">
-          {formatKes(item.price_kes)}
-        </p>
+
+  <span className="inline-block rounded-full bg-brand-light px-2 py-1 text-[11px] font-medium text-brand-dark">
+    {item.category}
+  </span>
+
+  <p className="mt-2 truncate text-[14px] font-medium text-ink">
+    {item.name}
+  </p>
+
+  <p className="price mt-1 text-[15px] font-medium text-brand-dark">
+    {formatKes(item.price_kes)}
+  </p>
         <span className="mt-2 inline-block rounded-full bg-paper px-2.5 py-0.5 text-[11px] font-medium text-muted border border-border">
           {item.region}
         </span>

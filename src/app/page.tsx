@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import ItemCard from "@/components/ItemCard";
+import { CATEGORIES } from "@/lib/categories";
+import Link from "next/link";
 
 export default async function BrowsePage({
   searchParams,
@@ -7,13 +9,14 @@ export default async function BrowsePage({
   searchParams: {
     region?: string;
     search?: string;
+    category?: string;
   };
 }) {
   const supabase = createClient();
 
   let query = supabase
     .from("items")
-    .select("id, name, price_kes, region, image_urls, created_at")
+    .select("id, name, category, price_kes, region, image_urls, created_at")
     .order("created_at", { ascending: false });
     if (searchParams.search) {
   query = query.ilike("name", `%${searchParams.search}%`);
@@ -22,6 +25,9 @@ export default async function BrowsePage({
   if (searchParams.region) {
     query = query.eq("region", searchParams.region);
   }
+  if (searchParams.category) {
+  query = query.eq("category", searchParams.category);
+}
 
   const { data: items, error } = await query;
 
@@ -89,6 +95,31 @@ export default async function BrowsePage({
           </p>
         </div>
       )}
+      <div className="mb-10">
+  <h2 className="mb-4 font-display text-2xl font-bold text-ink">
+    Browse by Category
+  </h2>
+
+  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    {CATEGORIES.map((cat) => (
+      <Link
+  key={cat.name}
+  href={
+  cat.name === "All"
+    ? "/"
+    : `/?category=${encodeURIComponent(cat.name)}`
+}
+  className="rounded-xl border border-border bg-white p-4 text-left transition hover:border-brand hover:shadow-md"
+>
+  <div className="text-3xl">{cat.icon}</div>
+
+  <p className="mt-2 text-sm font-medium text-ink">
+    {cat.name}
+  </p>
+</Link>
+    ))}
+  </div>
+</div>
 
       <div id="latest" className="mb-6">
         <h2 className="font-display text-2xl font-bold text-ink">
