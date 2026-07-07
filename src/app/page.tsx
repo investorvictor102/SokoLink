@@ -13,14 +13,14 @@ export default async function BrowsePage({
   minPrice?: string;
   maxPrice?: string;
   search?:string;
+  sort?:string;
 };
 }) {
   const supabase = createClient();
 
   let query = supabase
-    .from("items")
-    .select("id, name, category, price_kes, region, image_urls, created_at")
-    .order("created_at", { ascending: false });
+  .from("items")
+  .select("id, name, category, price_kes, region, image_urls, featured, created_at")
     if (searchParams.search) {
   query = query.ilike("name", `%${searchParams.search}%`);
 }
@@ -44,6 +44,21 @@ if (searchParams.maxPrice) {
     Number(searchParams.maxPrice)
   );
 }
+if (searchParams.sort === "low") {
+  query = query.order("price_kes", { ascending: true });
+} else if (searchParams.sort === "high") {
+  query = query.order("price_kes", { ascending: false });
+} else if (searchParams.sort === "old") {
+  query = query.order("created_at", { ascending: true });
+} else {
+  // Default: newest first
+  query = query.order("created_at", { ascending: false });
+}
+   const { data: featuredItems } = await supabase
+  .from("items")
+  .select("id, name, category, price_kes, region, image_urls, featured, created_at")
+  .eq("featured", true)
+  .limit(4);
 
   const { data: items, error } = await query;
 
@@ -136,6 +151,31 @@ if (searchParams.maxPrice) {
     ))}
   </div>
 </div>
+   {featuredItems && featuredItems.length > 0 && (
+  <div className="mb-12 rounded-card border border-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50 p-6 shadow-sm">
+    <div className="flex items-center gap-3">
+  <span className="text-3xl">⭐</span>
+
+  <div>
+    <h2 className="font-display text-2xl font-bold text-ink">
+      Featured Listings
+    </h2>
+
+    <p className="text-sm text-muted">
+      Hand-picked listings worth checking out.
+    </p>
+  </div>
+</div>
+      <div className="h-6" />
+
+
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+      {featuredItems.map((item) => (
+        <ItemCard key={item.id} item={item} />
+      ))}
+    </div>
+  </div>
+)}
      <FilterBar />
 
       <div id="latest" className="mb-6">

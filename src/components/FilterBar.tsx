@@ -18,6 +18,9 @@ export default function FilterBar() {
   const [region, setRegion] = useState(
   searchParams.get("region") ?? ""
 );
+const [sort, setSort] = useState(
+  searchParams.get("sort") ?? ""
+);
 
   function applyFilters() {
   const params = new URLSearchParams(searchParams.toString());
@@ -36,6 +39,10 @@ export default function FilterBar() {
     params.set("maxPrice", maxPrice);
   else
     params.delete("maxPrice");
+    if (sort)
+  params.set("sort", sort);
+else
+  params.delete("sort");
 
   router.push(`/?${params.toString()}`);
 }
@@ -46,10 +53,12 @@ export default function FilterBar() {
   params.delete("region");
   params.delete("minPrice");
   params.delete("maxPrice");
+  params.delete("sort");
 
   setRegion("");
   setMinPrice("");
   setMaxPrice("");
+  setSort("");
 
   router.push("/");
 }
@@ -60,7 +69,7 @@ export default function FilterBar() {
         Filter Listings
       </h2>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-4">
         <div>
         <div>
   <label className="label">Region</label>
@@ -89,6 +98,20 @@ export default function FilterBar() {
             onChange={(e) => setMinPrice(e.target.value)}
           />
         </div>
+        <div>
+  <label className="label">Sort By</label>
+
+  <select
+    className="input-field"
+    value={sort}
+    onChange={(e) => setSort(e.target.value)}
+  >
+    <option value="">Newest First</option>
+    <option value="old">Oldest First</option>
+    <option value="low">Lowest Price</option>
+    <option value="high">Highest Price</option>
+  </select>
+</div>
 
         <div>
           <label className="label">Maximum Price (KES)</label>
