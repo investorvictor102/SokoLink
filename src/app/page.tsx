@@ -21,6 +21,7 @@ export default async function BrowsePage({
   let query = supabase
   .from("items")
   .select("id, name, category, price_kes, region, image_urls, featured, created_at")
+  .eq("featured", false)
     if (searchParams.search) {
   query = query.ilike("name", `%${searchParams.search}%`);
 }
