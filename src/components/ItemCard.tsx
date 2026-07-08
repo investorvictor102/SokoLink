@@ -10,10 +10,14 @@ type Item = {
   region: string;
   featured: boolean;
   image_urls: string[];
+  created_at: string;
 };
 
 export default function ItemCard({ item }: { item: Item }) {
   const cover = item.image_urls?.[0];
+  const isNew =
+  Date.now() - new Date(item.created_at).getTime() <
+  1000 * 60 * 60 * 24 * 2;
 
   return (
     <Link
@@ -21,9 +25,14 @@ export default function ItemCard({ item }: { item: Item }) {
       className="group block overflow-hidden rounded-card border border-border bg-white transition hover:border-brand/50"
     >
         <div className="relative aspect-[4/3] w-full bg-brand-light">
+  {isNew && (
+  <div className="absolute left-2 top-2 z-10 rounded-full bg-green-500 px-3 py-1 text-xs font-semibold text-white shadow">
+    🆕 New
+  </div>
+)}
 
   {item.featured && (
-    <div className="absolute left-2 top-2 z-10 rounded-full bg-amber-400 px-3 py-1 text-xs font-semibold text-amber-900 shadow">
+    <div className="absolute left-2 top-11 z-10 rounded-full bg-amber-400 px-3 py-1 text-xs font-semibold text-amber-900 shadow">
       ⭐ Featured
     </div>
   )}
