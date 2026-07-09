@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { formatKes } from "@/lib/utils";
 import ContactSeller from "@/components/ContactSeller";
+import ViewTracker from "@/components/ViewTracker";
 
 export default async function ItemDetailPage({
   params,
@@ -11,11 +12,12 @@ export default async function ItemDetailPage({
 }) {
   const supabase = createClient();
 
+
   const { data: item } = await supabase
     .from("items")
     .select(
-      "id, name, price_kes, description, region, image_urls, video_url, seller_id"
-    )
+     "id, name, price_kes, description, region, image_urls, video_url, seller_id, views"
+  )
     .eq("id", params.id)
     .single();
 
@@ -30,6 +32,7 @@ export default async function ItemDetailPage({
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
 
   return (
     <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
@@ -81,6 +84,10 @@ export default async function ItemDetailPage({
         <p className="price mt-2 text-[26px] font-medium text-brand-dark">
           {formatKes(item.price_kes)}
         </p>
+        <div className="mt-2 flex items-center gap-2 text-sm text-muted">
+  <span>👁</span>
+  <span>{item.views ?? 0} views</span>
+</div>
         <span className="mt-3 inline-block rounded-full bg-paper px-2.5 py-0.5 text-[12px] font-medium text-muted border border-border">
           {item.region}
         </span>
@@ -94,6 +101,7 @@ export default async function ItemDetailPage({
           )}
         </div>
       </div>
+      <ViewTracker itemId={item.id} />
     </div>
   );
 }

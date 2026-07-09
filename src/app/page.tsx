@@ -20,7 +20,7 @@ export default async function BrowsePage({
 
   let query = supabase
   .from("items")
-  .select("id, name, category, price_kes, region, image_urls, featured, created_at")
+  .select("id, name, category, price_kes, region, image_urls, featured, created_at,views")
   .eq("featured", false)
     if (searchParams.search) {
   query = query.ilike("name", `%${searchParams.search}%`);
@@ -57,7 +57,7 @@ if (searchParams.sort === "low") {
 }
    const { data: featuredItems } = await supabase
   .from("items")
-  .select("id, name, category, price_kes, region, image_urls, featured, created_at")
+  .select("id, name, category, price_kes, region, image_urls, featured, created_at,views")
   .eq("featured", true)
   .limit(4);
 

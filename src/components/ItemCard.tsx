@@ -11,6 +11,7 @@ type Item = {
   featured: boolean;
   image_urls: string[];
   created_at: string;
+  views: number;
 };
 
 export default function ItemCard({ item }: { item: Item }) {
@@ -64,9 +65,15 @@ export default function ItemCard({ item }: { item: Item }) {
   <p className="price mt-1 text-[15px] font-medium text-brand-dark">
     {formatKes(item.price_kes)}
   </p>
-        <span className="mt-2 inline-block rounded-full bg-paper px-2.5 py-0.5 text-[11px] font-medium text-muted border border-border">
-          {item.region}
-        </span>
+        <div className="mt-3 flex items-center justify-between text-[12px] text-muted">
+  <span className="rounded-full border border-border bg-paper px-2.5 py-0.5">
+    📍 {item.region}
+  </span>
+
+  <span className="flex items-center gap-1">
+    👁 {item.views ?? 0}
+  </span>
+</div>
       </div>
     </Link>
   );

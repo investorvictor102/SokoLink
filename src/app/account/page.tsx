@@ -16,7 +16,7 @@ export default async function AccountPage() {
 
   const { data: items, error } = await supabase
     .from("items")
-    .select("id, name, price_kes, region, image_urls, created_at")
+    .select("id, name, price_kes, region, image_urls, created_at, views")
     .eq("seller_id", user.id)
     .order("created_at", { ascending: false });
 
@@ -77,11 +77,18 @@ export default async function AccountPage() {
                 {item.name}
               </Link>
               <p className="price mt-0.5 text-[14px] font-medium text-brand-dark">
-                {formatKes(item.price_kes)}
-              </p>
-              <span className="mt-1 inline-block rounded-full border border-border bg-paper px-2 py-0.5 text-[11px] text-muted">
-                {item.region}
-              </span>
+  {formatKes(item.price_kes)}
+</p>
+
+<div className="mt-1 flex items-center gap-3 text-[12px] text-muted">
+  <span className="flex items-center gap-1">
+    👁 {item.views ?? 0}
+  </span>
+
+  <span className="rounded-full border border-border bg-paper px-2 py-0.5">
+    {item.region}
+  </span>
+</div>
             </div>
 
             <div className="flex shrink-0 items-center gap-4">
