@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { formatKes } from "@/lib/utils";
 import ContactSeller from "@/components/ContactSeller";
 import ViewTracker from "@/components/ViewTracker";
+import MessageSellerButton from "@/components/MessageSellerButton";
 
 export default async function ItemDetailPage({
   params,
@@ -95,11 +96,19 @@ export default async function ItemDetailPage({
           {item.description}
         </p>
 
-        <div className="mt-6">
-          {seller && (
-            <ContactSeller seller={seller} isSignedIn={!!user} />
-          )}
-        </div>
+        <div className="mt-6 space-y-3">
+  <MessageSellerButton
+    itemId={item.id}
+    sellerId={item.seller_id}
+  />
+
+  {seller && (
+    <ContactSeller
+      seller={seller}
+      isSignedIn={!!user}
+    />
+  )}
+</div>
       </div>
       <ViewTracker itemId={item.id} />
     </div>
