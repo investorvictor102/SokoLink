@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ChatInput from "@/components/ChatInput";
+import LiveChat from "@/components/LiveChat";
 
 export default async function ConversationPage({
   params,
@@ -55,54 +56,11 @@ export default async function ConversationPage({
           Conversation
         </p>
 
-        <div className="mt-8 rounded-lg border border-border p-4 space-y-3 min-h-[300px]">
-  {messages && messages.length > 0 ? (
-    messages.map((message) => (
-      <div
-  key={message.id}
-  className={`max-w-[80%] ${
-    message.sender_id === user.id ? "ml-auto" : "mr-auto"
-  }`}
->
-  <p
-    className={`mb-1 text-xs font-semibold ${
-      message.sender_id === user.id
-        ? "text-right text-brand"
-        : "text-gray-500"
-    }`}
-  >
-    {message.sender_id === user.id ? "You" : "Seller"}
-  </p>
-
-  <div
-    className={`rounded-lg px-4 py-2 ${
-      message.sender_id === user.id
-        ? "bg-brand text-white"
-        : "bg-gray-100 text-black"
-    }`}
-  >
-    {message.message}
-    <p
-  className={`mt-1 text-[11px] ${
-    message.sender_id === user.id
-      ? "text-white/70"
-      : "text-gray-500"
-  }`}
->
-  {new Date(message.created_at).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  })}
-</p>
-  </div>
-</div>
-    ))
-  ) : (
-    <p className="text-center text-muted">
-      No messages yet.
-    </p>
-  )}
-</div>
+        <LiveChat
+  messages={messages ?? []}
+  currentUserId={user.id}
+  conversationId={conversation.id}
+/>
 
         <ChatInput conversationId={conversation.id} />
       </div>
