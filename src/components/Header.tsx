@@ -27,8 +27,12 @@ export default async function Header() {
           {user ? (
             <>
               <Link href="/account" className="btn-secondary !border-0 !px-3">
-                My listings
-              </Link>
+  My listings
+</Link>
+
+<Link href="/messages" className="btn-secondary !border-0 !px-3">
+  💬 Inbox
+</Link>
               <Link href="/post" className="btn-primary">
                 Post an item
               </Link>
