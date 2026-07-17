@@ -46,12 +46,22 @@ export default async function MessagesPage() {
       .select("full_name")
       .eq("id", otherUserId)
       .single();
+      
+      const { data: lastMessage } = await supabase
+  .from("messages")
+  .select("message, created_at")
+  .eq("conversation_id", conversation.id)
+  .order("created_at", { ascending: false })
+  .limit(1)
+  .single();
 
     inbox.push({
-      id: conversation.id,
-      itemName: conversation.items?.[0]?.name ?? "Conversation",
-      otherName: otherPerson?.full_name ?? "Unknown user",
-    });
+  id: conversation.id,
+  itemName: conversation.items?.[0]?.name ?? "Conversation",
+  otherName: otherPerson?.full_name ?? "Unknown user",
+  lastMessage: lastMessage?.message ?? "No messages yet",
+  lastTime: lastMessage?.created_at ?? null,
+});
   }
 
   return (
@@ -76,9 +86,18 @@ export default async function MessagesPage() {
                 {chat.otherName}
               </p>
 
-              <p className="text-sm text-muted">
-                Open conversation →
-              </p>
+              <p className="mt-1 text-sm text-muted line-clamp-1">
+  {chat.lastMessage}
+</p>
+
+{chat.lastTime && (
+  <p className="mt-1 text-xs text-gray-400">
+    {new Date(chat.lastTime).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}
+  </p>
+)}
             </Link>
           ))}
         </div>
