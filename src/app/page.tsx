@@ -132,7 +132,7 @@ if (searchParams.sort === "low") {
     Browse by Category
   </h2>
 
-  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+  <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5">
     {CATEGORIES.map((cat) => (
       <Link
   key={cat.name}
@@ -141,11 +141,11 @@ if (searchParams.sort === "low") {
     ? "/"
     : `/?category=${encodeURIComponent(cat.name)}`
 }
-  className="rounded-xl border border-border bg-white p-4 text-left transition hover:border-brand hover:shadow-md"
+  className="rounded-lg border border-border bg-white p-2 text-center transition hover:border-brand hover:shadow-md"
 >
-  <div className="text-3xl">{cat.icon}</div>
+  <div className="text-2xl">{cat.icon}</div>
 
-  <p className="mt-2 text-sm font-medium text-ink">
+  <p className="mt-1 text-xs font-medium text-ink">
     {cat.name}
   </p>
 </Link>
