@@ -90,17 +90,17 @@ const nextImage = () => {
 
     {/* Close */}
     <button
-      onClick={() => setFullscreen(false)}
-      className="absolute right-5 top-5 text-4xl font-bold text-white hover:text-gray-300"
-    >
-      ×
-    </button>
+  onClick={() => setFullscreen(false)}
+  className="absolute right-5 top-5 z-50 rounded-full bg-black/60 p-3 text-3xl font-bold text-white"
+>
+  ✕
+</button>
 
     {/* Previous */}
     {selectedImage > 0 && (
   <button
     onClick={previousImage}
-    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-4 text-4xl text-white transition hover:bg-black/80"
+    className="absolute left-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-black/60 p-4 text-4xl text-white transition hover:bg-black/80"
   >
     ‹
   </button>
@@ -108,20 +108,40 @@ const nextImage = () => {
 
     {/* Image */}
     <div className="relative h-[90vh] w-[90vw]">
-      <Image
-        src={images[selectedImage]}
-        alt="Product image"
-        fill
-        priority
-        className="object-contain"
-      />
-    </div>
+
+  <Image
+    src={images[selectedImage]}
+    alt="Product image"
+    fill
+    priority
+    className="object-contain"
+  />
+
+  {selectedImage > 0 && (
+    <button
+      onClick={previousImage}
+      className="absolute left-2 top-1/2 z-[60] -translate-y-1/2 rounded-full bg-black/70 p-3 text-3xl text-white active:scale-95"
+    >
+      ‹
+    </button>
+  )}
+
+  {selectedImage < images.length - 1 && (
+    <button
+      onClick={nextImage}
+      className="absolute right-2 top-1/2 z-[60] -translate-y-1/2 rounded-full bg-black/70 p-3 text-3xl text-white active:scale-95"
+    >
+      ›
+    </button>
+  )}
+
+</div>
 
     {/* Next */}
     {selectedImage < images.length - 1 && (
   <button
     onClick={nextImage}
-    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-4 text-4xl text-white transition hover:bg-black/80"
+    className="absolute right-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-black/60 p-4 text-4xl text-white transition hover:bg-black/80"
   >
     ›
   </button>
