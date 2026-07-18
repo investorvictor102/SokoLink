@@ -65,11 +65,10 @@ else
 
   return (
     <div className="mb-8 rounded-card border border-border bg-white p-5 shadow-sm">
-      <h2 className="mb-4 font-display text-xl font-bold text-ink">
-        Filter Listings
-      </h2>
-
-      <div className="grid gap-4 md:grid-cols-4">
+      <h2 className="mb-5 flex items-center gap-2 font-display text-xl font-bold text-ink">
+    ⚙️ Filters
+</h2>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div>
         <div>
   <label className="label">Region</label>
@@ -126,17 +125,17 @@ else
         </div>
       </div>
 
-      <div className="mt-5 flex gap-3">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <button
           onClick={applyFilters}
-          className="btn-primary"
+          className="btn-primary w-full sm:w-auto"
         >
           Apply Filters
         </button>
 
         <button
           onClick={clearFilters}
-          className="rounded-lg border border-border px-4 py-2 hover:bg-gray-50"
+          className="w-full rounded-lg border border-border px-4 py-2 hover:bg-gray-50 sm:w-auto"
         >
           Clear
         </button>
