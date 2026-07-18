@@ -23,7 +23,7 @@ export default function ItemCard({ item }: { item: Item }) {
   return (
     <Link
       href={`/items/${item.id}`}
-      className="group block overflow-hidden rounded-card border border-border bg-white transition hover:border-brand/50"
+      className="group block overflow-hidden rounded-card border border-border bg-white transition-all duration-200 hover:-translate-y-1 hover:border-brand/50 hover:shadow-lg"
     >
         <div className="relative aspect-[4/3] w-full bg-brand-light">
   {isNew && (
@@ -43,7 +43,7 @@ export default function ItemCard({ item }: { item: Item }) {
       src={cover}
       alt={item.name}
       fill
-      className="object-cover"
+      className="object-cover transition-transform duration-300 group-hover:scale-105"
       sizes="(max-width: 640px) 50vw, 25vw"
     />
   ) : (
@@ -52,17 +52,17 @@ export default function ItemCard({ item }: { item: Item }) {
     </div>
   )}
 </div>
-      <div className="p-3">
+      <div className="p-4">
 
   <span className="inline-block rounded-full bg-brand-light px-2 py-1 text-[11px] font-medium text-brand-dark">
     {item.category}
   </span>
 
-  <p className="mt-2 truncate text-[14px] font-medium text-ink">
+  <p className="mt-2 truncate text-[15px] font-medium text-ink">
     {item.name}
   </p>
 
-  <p className="price mt-1 text-[15px] font-medium text-brand-dark">
+  <p className="price mt-1 text-[17px] font-medium text-brand-dark">
     {formatKes(item.price_kes)}
   </p>
         <div className="mt-3 flex items-center justify-between text-[12px] text-muted">
