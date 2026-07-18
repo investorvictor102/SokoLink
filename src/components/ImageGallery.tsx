@@ -13,19 +13,25 @@ export default function ImageGallery({
   videoUrl,
 }: Props) {
   const [selectedImage, setSelectedImage] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
 
   return (
     <>
       {/* Main image */}
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-border bg-brand-light shadow-sm">
         {images?.length > 0 ? (
-          <Image
-            src={images[selectedImage]}
-            alt="Product image"
-            fill
-            priority
-            className="object-cover"
-          />
+          <div
+  onClick={() => setFullscreen(true)}
+  className="relative h-full w-full cursor-zoom-in"
+>
+  <Image
+    src={images[selectedImage]}
+    alt="Product image"
+    fill
+    priority
+    className="object-cover"
+  />
+</div>
         ) : (
           <div className="flex h-full w-full items-center justify-center text-muted">
             No photo
@@ -68,6 +74,28 @@ export default function ImageGallery({
           )}
         </div>
       )}
+      {fullscreen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
+
+    <button
+      onClick={() => setFullscreen(false)}
+      className="absolute right-5 top-5 text-4xl font-bold text-white hover:text-gray-300"
+    >
+      ×
+    </button>
+
+    <div className="relative h-[90vh] w-[90vw]">
+      <Image
+        src={images[selectedImage]}
+        alt="Product image"
+        fill
+        className="object-contain"
+        priority
+      />
+    </div>
+
+  </div>
+)}
     </>
   );
 }
