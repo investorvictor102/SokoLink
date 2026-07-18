@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/SignOutButton";
+import MobileMenu from "@/components/MobileMenu";
 
 export default async function Header() {
   const supabase = createClient();
@@ -20,35 +21,49 @@ export default async function Header() {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-2">
-          <Link href="/" className="btn-secondary !border-0 !px-3">
-            Browse
-          </Link>
-          {user ? (
-            <>
-              <Link href="/account" className="btn-secondary !border-0 !px-3">
-  My listings
-</Link>
+        <div className="flex items-center">
 
-<Link href="/messages" className="btn-secondary !border-0 !px-3">
-  💬 Inbox
-</Link>
-              <Link href="/post" className="btn-primary">
-                Post an item
-              </Link>
-              <SignOutButton />
-            </>
-          ) : (
-            <>
-              <Link href="/login" className="btn-secondary">
-                Log in
-              </Link>
-              <Link href="/signup" className="btn-primary">
-                Sign up
-              </Link>
-            </>
-          )}
-        </nav>
+  {/* Desktop Navigation */}
+  <nav className="hidden items-center gap-2 md:flex">
+    <Link href="/" className="btn-secondary !border-0 !px-3">
+      Browse
+    </Link>
+
+    {user ? (
+      <>
+        <Link href="/account" className="btn-secondary !border-0 !px-3">
+          My listings
+        </Link>
+
+        <Link href="/messages" className="btn-secondary !border-0 !px-3">
+          💬 Inbox
+        </Link>
+
+        <Link href="/post" className="btn-primary">
+          Post an item
+        </Link>
+
+        <SignOutButton />
+      </>
+    ) : (
+      <>
+        <Link href="/login" className="btn-secondary">
+          Log in
+        </Link>
+
+        <Link href="/signup" className="btn-primary">
+          Sign up
+        </Link>
+      </>
+    )}
+  </nav>
+
+  {/* Mobile Navigation */}
+  <div className="md:hidden">
+    <MobileMenu loggedIn={!!user} />
+  </div>
+
+</div>
       </div>
     </header>
   );
