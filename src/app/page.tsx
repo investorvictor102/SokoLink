@@ -78,25 +78,25 @@ if (searchParams.sort === "low") {
             sellers across Kenya.
           </p>
           <form className="mt-8" action="/">
-  <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
     <input
-      type="text"
-      name="search"
-      defaultValue={searchParams.search ?? ""}
-      placeholder="🔍 Search for phones, laptops, furniture..."
-      className="flex-1 rounded-xl border border-border px-5 py-4 text-base outline-none focus:border-green-500 focus:ring-2 focus:ring-green-200"
-    />
+  type="text"
+  name="search"
+  defaultValue={searchParams.search ?? ""}
+  placeholder="🔍 Search products..."
+  className="w-full flex-1 rounded-xl border border-border px-5 py-4 text-base outline-none transition focus:border-green-500 focus:ring-2 focus:ring-green-200"
+/>
 
     <button
-      type="submit"
-      className="btn-primary"
-    >
-      Search
-    </button>
+  type="submit"
+  className="btn-primary w-full sm:w-auto"
+>
+  Search
+</button>
   </div>
 </form>
 
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href="#latest" className="btn-primary">
               Browse Listings
             </a>
