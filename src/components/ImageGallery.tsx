@@ -14,6 +14,17 @@ export default function ImageGallery({
 }: Props) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
+  const previousImage = () => {
+  if (selectedImage > 0) {
+    setSelectedImage(selectedImage - 1);
+  }
+};
+
+const nextImage = () => {
+  if (selectedImage < images.length - 1) {
+    setSelectedImage(selectedImage + 1);
+  }
+};
 
   return (
     <>
@@ -77,6 +88,7 @@ export default function ImageGallery({
       {fullscreen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
 
+    {/* Close */}
     <button
       onClick={() => setFullscreen(false)}
       className="absolute right-5 top-5 text-4xl font-bold text-white hover:text-gray-300"
@@ -84,15 +96,43 @@ export default function ImageGallery({
       ×
     </button>
 
+    {/* Previous */}
+    {selectedImage > 0 && (
+      <button
+        onClick={previousImage}
+        className="absolute left-5 rounded-full bg-black/50 p-4 text-3xl text-white hover:bg-black/70"
+      >
+        ‹
+      </button>
+    )}
+
+    {/* Image */}
     <div className="relative h-[90vh] w-[90vw]">
       <Image
         src={images[selectedImage]}
         alt="Product image"
         fill
-        className="object-contain"
         priority
+        className="object-contain"
       />
     </div>
+
+    {/* Next */}
+    {selectedImage < images.length - 1 && (
+      <button
+        onClick={nextImage}
+        className="absolute right-5 rounded-full bg-black/50 p-4 text-3xl text-white hover:bg-black/70"
+      >
+        ›
+      </button>
+    )}
+
+    {/* Counter */}
+    {images.length > 1 && (
+      <div className="absolute bottom-6 rounded-full bg-black/50 px-4 py-2 text-white">
+        {selectedImage + 1} / {images.length}
+      </div>
+    )}
 
   </div>
 )}
