@@ -98,13 +98,13 @@ const nextImage = () => {
 
     {/* Previous */}
     {selectedImage > 0 && (
-      <button
-        onClick={previousImage}
-        className="absolute left-5 rounded-full bg-black/50 p-4 text-3xl text-white hover:bg-black/70"
-      >
-        ‹
-      </button>
-    )}
+  <button
+    onClick={previousImage}
+    className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-4 text-4xl text-white transition hover:bg-black/80"
+  >
+    ‹
+  </button>
+)}
 
     {/* Image */}
     <div className="relative h-[90vh] w-[90vw]">
@@ -119,13 +119,13 @@ const nextImage = () => {
 
     {/* Next */}
     {selectedImage < images.length - 1 && (
-      <button
-        onClick={nextImage}
-        className="absolute right-5 rounded-full bg-black/50 p-4 text-3xl text-white hover:bg-black/70"
-      >
-        ›
-      </button>
-    )}
+  <button
+    onClick={nextImage}
+    className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-4 text-4xl text-white transition hover:bg-black/80"
+  >
+    ›
+  </button>
+)}
 
     {/* Counter */}
     {images.length > 1 && (
