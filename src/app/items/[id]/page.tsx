@@ -38,7 +38,7 @@ export default async function ItemDetailPage({
   return (
     <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
       <div>
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card bg-brand-light">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card border border-border bg-brand-light shadow-sm">
           {item.image_urls?.[0] ? (
             <Image
               src={item.image_urls[0]}
@@ -79,22 +79,31 @@ export default async function ItemDetailPage({
       </div>
 
       <div>
-        <h1 className="font-display text-[22px] font-bold text-ink">
+        <h1 className="font-display text-2xl md:text-3xl font-bold text-ink">
           {item.name}
         </h1>
         <p className="price mt-2 text-[26px] font-medium text-brand-dark">
           {formatKes(item.price_kes)}
         </p>
-        <div className="mt-2 flex items-center gap-2 text-sm text-muted">
-  <span>👁</span>
-  <span>{item.views ?? 0} views</span>
+        <div className="mt-4 flex flex-wrap gap-2">
+
+  <span className="rounded-full border border-border bg-paper px-3 py-1 text-sm text-muted">
+    📍 {item.region}
+  </span>
+
+  <span className="rounded-full border border-border bg-paper px-3 py-1 text-sm text-muted">
+    👁 {item.views ?? 0} views
+  </span>
+
 </div>
-        <span className="mt-3 inline-block rounded-full bg-paper px-2.5 py-0.5 text-[12px] font-medium text-muted border border-border">
-          {item.region}
-        </span>
-        <p className="mt-4 whitespace-pre-line text-[14px] leading-relaxed text-ink">
-          {item.description}
-        </p>
+          
+        <h2 className="mt-6 text-lg font-semibold text-ink">
+  Description
+</h2>
+
+        <p className="mt-3 whitespace-pre-line text-[15px] leading-7 text-ink">
+  {item.description}
+</p>
 
         <div className="mt-6 space-y-3">
   <MessageSellerButton
