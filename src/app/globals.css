@@ -27,3 +27,12 @@ body {
 .label {
   @apply mb-1.5 block text-[13px] font-medium text-muted;
 }
+/* Hide horizontal scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

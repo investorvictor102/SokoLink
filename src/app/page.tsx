@@ -132,24 +132,38 @@ if (searchParams.sort === "low") {
     Browse by Category
   </h2>
 
-  <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-5">
+  <div className="overflow-x-auto pb-2 scrollbar-hide">
+  <div className="flex w-max gap-3">
     {CATEGORIES.map((cat) => (
-      <Link
-  key={cat.name}
-  href={
-  cat.name === "All"
-    ? "/"
-    : `/?category=${encodeURIComponent(cat.name)}`
-}
-  className="rounded-lg border border-border bg-white p-2 text-center transition hover:border-brand hover:shadow-md"
->
-  <div className="text-2xl">{cat.icon}</div>
+  <Link
+    key={cat.name}
+    href={
+      cat.name === "All"
+        ? "/"
+        : `/?category=${encodeURIComponent(cat.name)}`
+    }
+    className={`flex flex-col items-center rounded-xl border px-4 py-3 transition whitespace-nowrap min-w-[88px] ${
+      ((cat.name === "All" && !searchParams.category) ||
+        searchParams.category === cat.name)
+        ? "border-brand bg-brand text-white shadow-md"
+        : "border-border bg-white hover:border-brand hover:shadow-sm"
+    }`}
+  >
+    <span className="text-2xl">{cat.icon}</span>
 
-  <p className="mt-1 text-xs font-medium text-ink">
-    {cat.name}
-  </p>
-</Link>
-    ))}
+    <span
+      className={`mt-1 text-xs font-medium ${
+        ((cat.name === "All" && !searchParams.category) ||
+          searchParams.category === cat.name)
+          ? "text-white"
+          : "text-ink"
+      }`}
+    >
+      {cat.name}
+    </span>
+  </Link>
+))}
+    </div>
   </div>
 </div>
    {featuredItems && featuredItems.length > 0 && (
