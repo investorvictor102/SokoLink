@@ -26,10 +26,18 @@ export default async function ItemDetailPage({
   if (!item) notFound();
 
   const { data: seller } = await supabase
-    .from("profiles")
-    .select("full_name, email, phone, region")
-    .eq("id", item.seller_id)
-    .single();
+  .from("profiles")
+  .select("full_name, email, phone, region, created_at")
+  .eq("id", item.seller_id)
+  .single();
+  
+  const { count: sellerListings } = await supabase
+  .from("items")
+  .select("*", {
+    count: "exact",
+    head: true,
+  })
+  .eq("seller_id", item.seller_id);
 
   const {
     data: { user },
@@ -72,18 +80,63 @@ export default async function ItemDetailPage({
   {item.description}
 </p>
 
-        <div className="mt-6 space-y-3">
-  <MessageSellerButton
-    itemId={item.id}
-    sellerId={item.seller_id}
-  />
+        <div className="mt-8 rounded-card border border-border bg-white p-5 shadow-sm">
 
   {seller && (
-    <ContactSeller
-      seller={seller}
-      isSignedIn={!!user}
-    />
+    <>
+      <h3 className="text-lg font-semibold text-ink">
+        Seller Information
+      </h3>
+
+      <div className="mt-4 space-y-2 text-sm">
+
+        <div className="flex items-center gap-2">
+          <span>👤</span>
+          <span className="font-medium">{seller.full_name}</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span>✅</span>
+          <span>Verified Seller</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span>📍</span>
+          <span>{seller.region}</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span>🛍</span>
+          <span>{sellerListings ?? 0} Active Listings</span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <span>📅</span>
+          <span>
+            Member since{" "}
+            {new Date(seller.created_at).toLocaleDateString("en-US", {
+              month: "short",
+              year: "numeric",
+            })}
+          </span>
+        </div>
+
+      </div>
+
+      <div className="mt-6 space-y-3">
+        <MessageSellerButton
+          itemId={item.id}
+          sellerId={item.seller_id}
+        />
+
+        <ContactSeller
+          seller={seller}
+          isSignedIn={!!user}
+        />
+      </div>
+    </>
   )}
+
 </div>
       </div>
       <ViewTracker itemId={item.id} />
