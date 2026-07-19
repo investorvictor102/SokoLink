@@ -21,5 +21,5 @@ export const KENYA_REGIONS = [
 ];
 
 export const MAX_IMAGES = 3;
-export const MAX_VIDEO_BYTES = 5 * 1024 * 1024; // 5MB
-export const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB per image
+export const MAX_VIDEO_BYTES = 1 * 1024 * 1024; // 5MB
+export const MAX_IMAGE_BYTES = 1 * 1024 * 1024; // 5MB per image
