@@ -8,6 +8,7 @@ import MessageSellerButton from "@/components/MessageSellerButton";
 import ImageGallery from "@/components/ImageGallery";
 import ItemCard from "@/components/ItemCard";
 import Link from "next/link";
+import CompactItemCard from "@/components/CompactItemCard";
 
 export default async function ItemDetailPage({
   params,
@@ -202,13 +203,13 @@ export default async function ItemDetailPage({
       </div>
     </div>
 
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+    <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
       {sellerItems.map((sellerItem) => (
-        <ItemCard
-          key={sellerItem.id}
-          item={sellerItem}
-        />
-      ))}
+  <CompactItemCard
+    key={sellerItem.id}
+    item={sellerItem}
+  />
+))}
     </div>
   </section>
 )}
