@@ -20,7 +20,7 @@ export default async function ItemDetailPage({
   const { data: item } = await supabase
     .from("items")
     .select(
-     "id, name, price_kes, description, region, image_urls, video_url, seller_id, views"
+     "id, name,category, price_kes, description, region, image_urls, video_url, seller_id, views"
   )
     .eq("id", params.id)
     .single();
@@ -49,6 +49,14 @@ export default async function ItemDetailPage({
   .eq("seller_id", item.seller_id)
   .neq("id", item.id)
   .limit(4);
+  const { data: similarItems } = await supabase
+  .from("items")
+  .select(
+    "id, name, category, price_kes, region, image_urls, featured, created_at, views"
+  )
+  .eq("category", item.category)
+  .neq("id", item.id)
+  .limit(8);
 
   const {
     data: { user },
@@ -201,6 +209,32 @@ export default async function ItemDetailPage({
           item={sellerItem}
         />
       ))}
+    </div>
+  </section>
+)}
+{similarItems && similarItems.length > 0 && (
+  <section className="mt-12">
+    <div className="mb-5">
+      <h2 className="font-display text-2xl font-bold text-ink">
+        Similar Products
+      </h2>
+
+      <p className="text-muted">
+        You might also like these items.
+      </p>
+    </div>
+
+    <div className="overflow-x-auto scrollbar-hide">
+      <div className="flex gap-4 pb-2">
+        {similarItems.map((similarItem) => (
+          <div
+            key={similarItem.id}
+            className="w-[170px] flex-shrink-0"
+          >
+            <ItemCard item={similarItem} />
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 )}
