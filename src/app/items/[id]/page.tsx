@@ -7,6 +7,7 @@ import ViewTracker from "@/components/ViewTracker";
 import MessageSellerButton from "@/components/MessageSellerButton";
 import ImageGallery from "@/components/ImageGallery";
 import ItemCard from "@/components/ItemCard";
+import Link from "next/link";
 
 export default async function ItemDetailPage({
   params,
@@ -92,7 +93,37 @@ export default async function ItemDetailPage({
 
         <div className="mt-8 rounded-card border border-border bg-white p-5 shadow-sm">
 
-  {seller && (
+  {!user ? (
+
+    <div className="py-4 text-center">
+
+      <div className="mb-4 text-5xl">🔒</div>
+
+      <h3 className="text-xl font-semibold text-ink">
+        Seller Information
+      </h3>
+
+      <p className="mt-3 text-muted">
+        Sign in to unlock:
+      </p>
+
+      <div className="mt-5 space-y-2">
+        <p>✓ Seller details</p>
+        <p>✓ Contact information</p>
+        <p>✓ More listings from this seller</p>
+      </div>
+
+      <Link
+        href="/login"
+        className="btn-primary mt-6 inline-block"
+      >
+        Sign in for free
+      </Link>
+
+    </div>
+
+  ) : seller && (
+
     <>
       <h3 className="text-lg font-semibold text-ink">
         Seller Information
