@@ -16,7 +16,7 @@ export default function CompactItemCard({
   return (
     <Link
       href={`/items/${item.id}`}
-      className="block w-40 overflow-hidden rounded-xl border border-border bg-white shadow-sm transition hover:shadow-md"
+      className="block w-[150px] flex-shrink-0 overflow-hidden rounded-xl border border-border bg-white shadow-sm transition hover:shadow-md"
     >
       <div className="relative aspect-square">
         <Image

@@ -213,7 +213,7 @@ export default async function ItemDetailPage({
     </div>
   </section>
 )}
-{similarItems && similarItems.length > 0 && (
+{/*{similarItems && similarItems.length > 0 && (
   <section className="mt-12">
     <div className="mb-5">
       <h2 className="font-display text-2xl font-bold text-ink">
@@ -238,7 +238,7 @@ export default async function ItemDetailPage({
       </div>
     </div>
   </section>
-)}
+)}*/}
       <ViewTracker itemId={item.id} />
     </div>
   );
