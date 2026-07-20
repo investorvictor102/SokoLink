@@ -24,7 +24,7 @@ file storage).
 4. In **Project Settings → API**, copy your **Project URL** and
    **anon public key**.
 
-## 2. Configure the app
+## 2. Configure     the app
 
 ```bash
 cp .env.local.example .env.local
