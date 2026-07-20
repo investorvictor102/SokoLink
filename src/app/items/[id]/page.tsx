@@ -6,6 +6,7 @@ import ContactSeller from "@/components/ContactSeller";
 import ViewTracker from "@/components/ViewTracker";
 import MessageSellerButton from "@/components/MessageSellerButton";
 import ImageGallery from "@/components/ImageGallery";
+import ItemCard from "@/components/ItemCard";
 
 export default async function ItemDetailPage({
   params,
@@ -38,6 +39,15 @@ export default async function ItemDetailPage({
     head: true,
   })
   .eq("seller_id", item.seller_id);
+  
+  const { data: sellerItems } = await supabase
+  .from("items")
+  .select(
+    "id, name, category, price_kes, region, image_urls, featured, created_at, views"
+  )
+  .eq("seller_id", item.seller_id)
+  .neq("id", item.id)
+  .limit(4);
 
   const {
     data: { user },
@@ -139,6 +149,30 @@ export default async function ItemDetailPage({
 
 </div>
       </div>
+      {sellerItems && sellerItems.length > 0 && (
+  <section className="mt-12">
+    <div className="mb-5 flex items-center justify-between">
+      <div>
+        <h2 className="font-display text-2xl font-bold text-ink">
+          More from {seller?.full_name}
+        </h2>
+
+        <p className="text-muted">
+          Browse more items from this seller.
+        </p>
+      </div>
+    </div>
+
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+      {sellerItems.map((sellerItem) => (
+        <ItemCard
+          key={sellerItem.id}
+          item={sellerItem}
+        />
+      ))}
+    </div>
+  </section>
+)}
       <ViewTracker itemId={item.id} />
     </div>
   );
