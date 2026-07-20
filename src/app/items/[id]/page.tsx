@@ -203,17 +203,19 @@ export default async function ItemDetailPage({
       </div>
     </div>
 
-    <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-      {sellerItems.map((sellerItem) => (
-  <CompactItemCard
-    key={sellerItem.id}
-    item={sellerItem}
-  />
-))}
+    <div className="overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex w-max gap-4">
+        {sellerItems.map((sellerItem) => (
+          <CompactItemCard
+            key={sellerItem.id}
+            item={sellerItem}
+          />
+        ))}
+      </div>
     </div>
   </section>
 )}
-{/*{similarItems && similarItems.length > 0 && (
+{similarItems && similarItems.length > 0 && (
   <section className="mt-12">
     <div className="mb-5">
       <h2 className="font-display text-2xl font-bold text-ink">
@@ -238,7 +240,7 @@ export default async function ItemDetailPage({
       </div>
     </div>
   </section>
-)}*/}
+)}
       <ViewTracker itemId={item.id} />
     </div>
   );
