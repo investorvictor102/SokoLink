@@ -57,7 +57,7 @@ export default async function ItemDetailPage({
   )
   .eq("category", item.category)
   .neq("id", item.id)
-  .limit(8);
+  .limit(12);
 
   const {
     data: { user },
@@ -215,6 +215,28 @@ export default async function ItemDetailPage({
           />
         ))}
       </div>
+    </div>
+  </section>
+)}
+{similarItems && similarItems.length > 0 && (
+  <section className="mt-12">
+    <div className="mb-6">
+      <h2 className="font-display text-2xl font-bold text-ink">
+        Similar Products
+      </h2>
+
+      <p className="mt-1 text-muted">
+        More items in the <strong>{item.category}</strong> category.
+      </p>
+    </div>
+
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+      {similarItems.map((similarItem) => (
+        <ItemCard
+          key={similarItem.id}
+          item={similarItem}
+        />
+      ))}
     </div>
   </section>
 )}
