@@ -36,12 +36,15 @@ const config: Config = {
   },
 
   keyframes: {
-    shimmer: {
-      "100%": {
-        transform: "translateX(100%)",
-      },
+  shimmer: {
+    "0%": {
+      transform: "translateX(-100%)",
+    },
+    "100%": {
+      transform: "translateX(100%)",
     },
   },
+},
 
   animation: {
     shimmer: "shimmer 1.6s infinite",

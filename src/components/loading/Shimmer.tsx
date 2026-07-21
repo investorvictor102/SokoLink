@@ -5,9 +5,9 @@ export default function Shimmer({
 }) {
   return (
     <div
-      className={`relative overflow-hidden rounded bg-gray-200 ${className}`}
+      className={`relative overflow-hidden rounded bg-brand-light ${className}`}
     >
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.6s_infinite] bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+      <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent" />
     </div>
   );
 }

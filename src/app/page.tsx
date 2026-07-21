@@ -17,6 +17,7 @@ export default async function BrowsePage({
 };
 }) {
   const supabase = createClient();
+  
 
   let query = supabase
   .from("items")
