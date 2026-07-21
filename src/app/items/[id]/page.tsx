@@ -65,7 +65,8 @@ export default async function ItemDetailPage({
 
 
   return (
-    <div className="grid gap-8 overflow-x-hidden md:grid-cols-[1.4fr_1fr]">
+    <>
+  <section className="grid grid-cols-1 gap-8 md:grid-cols-[1.4fr_1fr]">
       <div>
         <ImageGallery
       images={item.image_urls}
@@ -172,6 +173,7 @@ export default async function ItemDetailPage({
         </div>
 
       </div>
+      
 
       <div className="mt-6 space-y-3">
         <MessageSellerButton
@@ -189,6 +191,7 @@ export default async function ItemDetailPage({
 
 </div>
       </div>
+      </section>
       {sellerItems && sellerItems.length > 0 && (
   <section className="mt-12">
     <div className="mb-5 flex items-center justify-between">
@@ -217,7 +220,7 @@ export default async function ItemDetailPage({
 )}
 <ViewTracker itemId={item.id} />
 
-    </div>
+    </>
   );
 }
 
