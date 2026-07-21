@@ -215,33 +215,9 @@ export default async function ItemDetailPage({
     </div>
   </section>
 )}
-{similarItems && similarItems.length > 0 && (
-  <section className="mt-12">
-    <div className="mb-5">
-      <h2 className="font-display text-2xl font-bold text-ink">
-        Similar Products
-      </h2>
+<ViewTracker itemId={item.id} />
 
-      <p className="text-muted">
-        You might also like these items.
-      </p>
-    </div>
-
-    <div className="overflow-x-auto scrollbar-hide">
-      <div className="flex gap-4 pb-2">
-        {similarItems.map((similarItem) => (
-          <div
-            key={similarItem.id}
-            className="w-[170px] flex-shrink-0"
-          >
-            <ItemCard item={similarItem} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-      <ViewTracker itemId={item.id} />
     </div>
   );
 }
+
