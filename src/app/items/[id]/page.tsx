@@ -65,7 +65,7 @@ export default async function ItemDetailPage({
 
 
   return (
-    <div className="grid gap-8 md:grid-cols-[1.4fr_1fr]">
+    <div className="grid gap-8 overflow-x-hidden md:grid-cols-[1.4fr_1fr]">
       <div>
         <ImageGallery
       images={item.image_urls}
