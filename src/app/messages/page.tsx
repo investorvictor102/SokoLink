@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import ConversationList from "@/components/messages/ConversationList";
+import EmptyConversation from "@/components/messages/EmptyConversation";
 
 export default async function MessagesPage() {
   const supabase = createClient();
@@ -65,43 +67,16 @@ export default async function MessagesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <h1 className="mb-6 text-2xl font-bold">
-        💬 Inbox
-      </h1>
+  <div className="mx-auto max-w-7xl rounded-card border border-border bg-white shadow-sm">
 
-      {inbox.length === 0 ? (
-        <p className="text-muted">No conversations yet.</p>
-      ) : (
-        <div className="space-y-3">
-          {inbox.map((chat) => (
-            <Link
-              key={chat.id}
-              href={`/messages/${chat.id}`}
-              className="block rounded-card border border-border bg-white p-4 hover:border-brand"
-            >
-              <h2 className="font-semibold">{chat.itemName}</h2>
+    <div className="grid h-[80vh] md:grid-cols-[340px_1fr]">
 
-              <p className="mt-1 text-sm font-medium">
-                {chat.otherName}
-              </p>
+      <ConversationList inbox={inbox} />
 
-              <p className="mt-1 text-sm text-muted line-clamp-1">
-  {chat.lastMessage}
-</p>
+      <EmptyConversation />
 
-{chat.lastTime && (
-  <p className="mt-1 text-xs text-gray-400">
-    {new Date(chat.lastTime).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    })}
-  </p>
-)}
-            </Link>
-          ))}
-        </div>
-      )}
     </div>
-  );
+
+  </div>
+);
 }
