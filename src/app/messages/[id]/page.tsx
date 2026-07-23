@@ -1,7 +1,7 @@
-
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import ConversationPanel from "@/components/messages/ConversationPanel";
+
 export default async function ConversationPage({
   params,
 }: {
@@ -50,18 +50,15 @@ export default async function ConversationPage({
     ? conversation.items[0]
     : conversation.items;
 
+  // No outer max-w-3xl/card wrapper here anymore — messages/layout.tsx
+  // already provides the fixed-height frame. This panel just needs to
+  // fill it (h-full) so its own scroll region can be bounded correctly.
   return (
-    <div className="mx-auto max-w-3xl">
-      <div className="rounded-card border border-border bg-white p-6">
-
-        <ConversationPanel
-  item={item}
-  messages={messages ?? []}
-  currentUserId={user.id}
-  conversationId={conversation.id}
-/>
-
-      </div>
-    </div>
+    <ConversationPanel
+      item={item}
+      messages={messages ?? []}
+      currentUserId={user.id}
+      conversationId={conversation.id}
+    />
   );
 }

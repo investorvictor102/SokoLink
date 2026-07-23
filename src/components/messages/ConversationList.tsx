@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import ConversationCard from "./ConversationCard";
 
 type Chat = {
@@ -15,8 +18,15 @@ type Props = {
 export default function ConversationList({
   inbox,
 }: Props) {
+  const pathname = usePathname();
+  const activeId = pathname?.split("/messages/")[1];
+
   return (
-    <div className="flex h-full flex-col">
+    // min-h-0 lets this column actually shrink to the grid row's height
+    // (h-[80vh] set on the parent in layout.tsx) instead of growing to
+    // fit its content, which is what makes overflow-y-auto below scroll
+    // on its own, independently of the message panel on the right.
+    <div className="flex h-full min-h-0 flex-col border-b border-border md:border-b-0 md:border-r">
 
       {/* Header */}
 
@@ -40,7 +50,7 @@ export default function ConversationList({
 
       {/* Conversations */}
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
 
         {inbox.length === 0 ? (
 
@@ -76,6 +86,7 @@ export default function ConversationList({
               itemName={chat.itemName}
               lastMessage={chat.lastMessage}
               lastTime={chat.lastTime}
+              active={chat.id === activeId}
             />
 
           ))

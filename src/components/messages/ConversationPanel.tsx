@@ -27,12 +27,16 @@ export default function ConversationPanel({
   currentUserId,
 }: Props) {
   return (
-    <div className="flex h-full flex-col">
+    // min-h-0 is the key fix: without it, a flex child won't shrink
+    // below its content size, so LiveChat's flex-1 below never actually
+    // gets a bounded height to scroll within — it just keeps growing
+    // and pushes the whole page (list included) down instead.
+    <div className="flex h-full min-h-0 flex-col">
 
       {item && (
         <Link
           href={`/items/${item.id}`}
-          className="flex items-center gap-4 border-b border-border bg-white p-4 transition hover:bg-brand-light"
+          className="flex shrink-0 items-center gap-4 border-b border-border bg-white p-4 transition hover:bg-brand-light"
         >
           {item.image_urls?.[0] && (
             <div className="relative h-20 w-20 overflow-hidden rounded-lg">
@@ -61,7 +65,7 @@ export default function ConversationPanel({
         </Link>
       )}
 
-      <div className="flex-1 overflow-hidden">
+      <div className="min-h-0 flex-1 overflow-hidden">
         <LiveChat
           messages={messages}
           currentUserId={currentUserId}
@@ -69,7 +73,7 @@ export default function ConversationPanel({
         />
       </div>
 
-      <div className="border-t border-border bg-white p-4">
+      <div className="shrink-0 border-t border-border bg-white p-4">
         <ChatInput conversationId={conversationId} />
       </div>
 

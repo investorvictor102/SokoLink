@@ -6,6 +6,7 @@ type Props = {
   itemName: string;
   lastMessage: string;
   lastTime: string | null;
+  active?: boolean;
 };
 
 export default function ConversationCard({
@@ -14,11 +15,14 @@ export default function ConversationCard({
   itemName,
   lastMessage,
   lastTime,
+  active = false,
 }: Props) {
   return (
     <Link
       href={`/messages/${id}`}
-      className="block border-b border-border bg-white p-4 transition hover:bg-brand-light"
+      className={`block border-b border-border p-4 transition hover:bg-brand-light ${
+        active ? "bg-brand-light" : "bg-white"
+      }`}
     >
       <div className="flex items-start gap-3">
 
